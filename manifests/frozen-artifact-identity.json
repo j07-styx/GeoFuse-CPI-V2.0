@@ -1,0 +1,17 @@
+{
+  "model": "GeoFuse-CPI V2.0",
+  "status": "FROZEN_RESEARCH_RELEASE_CANDIDATE",
+  "checkpoint_sha256": "b30fd7f5054ea6352d53c2dc854ce0af9cd7d163970c5c4b4b0b7591772d97f4",
+  "prediction_archive_sha256": "b8f935e2115ead2b83e247477118adedd38559acf368b80eabafc160240f0555",
+  "source_release_manifest": "research_v2/RELEASE_MANIFEST.json in the original local research checkout",
+  "checkpoint_distributed_in_this_repository": false,
+  "raw_datasets_distributed_in_this_repository": false,
+  "protected_labels_or_per_example_predictions_distributed": false,
+  "original_local_release_verification": {
+    "verify_release_py": "PASS",
+    "verify_release_py_smoke": "PASS",
+    "environment": "Original Windows research machine, Python 3.11 environment",
+    "note": "Smoke verification checks artifact integrity and finite example inference; it is not a new accuracy evaluation or clean-room retraining."
+  },
+  "scope_note": "This public repository documents methodology, aggregate results, provenance and reproducibility boundaries. It is not a deployable model package."
+}
