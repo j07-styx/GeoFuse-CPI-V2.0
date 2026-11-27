@@ -37,11 +37,11 @@ BioLiP3 reports two retrospective cohorts with 37 and 33 eligible measured cases
 
 OpenBind is a single-target EV-A71/CVA16 2A protease source. 660 source-only compounds passed structural/chemistry selection and were predicted before numerical pKd was opened; 482 had measured pKd values for scoring. It is not a multi-target external benchmark.
 
-## ATOM3D historical work is not a V2.0 evaluation
+## ATOM3D integration in V2.0 and claim boundaries
 
-ATOM3D-LBA was used in earlier GeoFuse structural R&D, including source-TRAIN-only atom-pair, pocket, shuffled-geometry, scaffold-cold and rigid-pose experiments. Those branches are summarized in [atom3d-prior-research.md](atom3d-prior-research.md). They informed the development of structural representations and controls but are not part of the frozen V2.0 model-selection record.
+ATOM3D-LBA was used in earlier GeoFuse structural R&D, including source-TRAIN-only atom-pair, pocket, shuffled-geometry, scaffold-cold and rigid-pose experiments. A separate local V2.0 extension now adds an ATOM3D task-specific pK head over the frozen ESM-2/Morgan shared representation. The original DAVIS/KIBA/METZ/GenSPARC heads remain unchanged.
 
-The official ATOM3D validation and test splits were each scored once by earlier non-V2.0 models. The test model was a separate 3,343D LightGBM experiment, and its integrity audit prohibits rereading or rescoring the official test. No frozen V2.0 ATOM3D result is established. ATOM3D scores must not be added to the V2.0 headline ledger.
+The extension was evaluated only on the 3,507 official TRAIN records using nested four-fold heuristic protein-cluster CV (observed-chain 3-mer Jaccard >=0.28). The official validation and test splits were not opened. The historical test result belongs to a separate earlier 3,343D LightGBM model, not V2.0, and the test audit prohibits rereading or rescoring. The local native 704D residual expert failed its deployment gate because pocket-only was stronger; it remains experimental. These results are not added to the V2.0 headline ledger. See [the local integration record](atom3d-v2-integration-local.md) and [historical appendix](atom3d-prior-research.md).
 
 ## Comparator rules
 

@@ -10,13 +10,14 @@
 - OpenBind and BioLiP3 label-free prepared-feature replay bundles and exact inference-parity scripts.
 - Source-label replay scripts, aggregate comparator references and environment pins.
 - Public metadata checker and frozen-inference verification script.
-- Aggregate-only historical ATOM3D research appendix, summary and local evidence-hash manifest. These are explicitly not V2.0 benchmark results.
+- Historical ATOM3D appendix and aggregate-only evidence manifest.
+- ATOM3D V2.0 training/inference code and a local integration record. The trained ATOM3D checkpoint and all ATOM3D-derived feature caches remain excluded from the public release.
 
 ## Excluded
 
 - Raw affinity labels and protected assay outcomes.
 - Raw OpenBind/BioLiP3 PDB/SDF structures and original source datasets.
-- Raw ATOM3D source archives, affinity labels, structures, derived feature arrays and per-example predictions. Only aggregate historical research notes and evidence hashes are included.
+- Raw ATOM3D source archives, affinity labels, structures, derived feature arrays, per-example predictions and ATOM3D-trained checkpoint weights. The local research checkpoint is ignored by Git and not redistributed.
 - ESM-2 650M weights (downloaded from the official fair-esm host).
 - The PRED_NOY.npz per-example benchmark prediction archive.
 - The original complete 2D training script and full training data/split pipeline, which were not present in the preserved V2.0 release checkout.

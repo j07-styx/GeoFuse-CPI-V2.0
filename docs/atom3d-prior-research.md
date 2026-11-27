@@ -12,7 +12,7 @@ The official LBA 30%-sequence-identity split contains 3,507 training, 466 valida
 
 - The V2.0 2D headline ledger reports DAVIS, KIBA, METZ and GenSPARC.
 - The V2.0 native expert is a separate component trained from the HiQBind TRAIN349 source and evaluated retrospectively on BioLiP3 and OpenBind.
-- ATOM3D is not listed as a training or evaluation cohort in the frozen V2.0 results ledger. No evaluation of the frozen V2.0 checkpoint on ATOM3D has been verified.
+- The original public frozen V2.0 checkpoint did not include an ATOM3D task head or ATOM3D evaluation. A separate local V2.0 extension has since added an ATOM3D head and train-only internal CV; it is not part of the public checkpoint or headline benchmark ledger. See [the local integration record](atom3d-v2-integration-local.md).
 - The ATOM3D experiments below belong to earlier exploratory research branches. Their scores were not merged into V2.0, and must not be score-stitched into its headline results.
 - The portable V2.0 release does not contain a complete raw ATOM3D PDB/SDF-to-423D/704D feature-generation pipeline.
 
@@ -70,6 +70,10 @@ All results in this section use the original ATOM3D TRAIN source or previously o
 5. V34–V36 demonstrated model sensitivity to ligand-coordinate changes. Sensitivity alone does not establish that the correct pose improves affinity prediction on new targets.
 
 The full experimental sequence, protocols, result files and local evidence hashes are recorded in the source manifest below. Raw ATOM3D structures, labels, per-example predictions and derived feature arrays are not redistributed here.
+
+## Subsequent local V2.0 integration
+
+A local GeoFuse-CPI V2.0 extension has since been trained with a new ATOM3D-specific task head on the frozen V2.0 ESM-2/Morgan shared representation. The original public checkpoint and its DAVIS/KIBA/METZ/GenSPARC heads remain unchanged. The extension used only the official TRAIN split in retrospective nested heuristic protein-cluster CV; it did not open official validation/test. Its native 704D residual expert did not pass the deployment gate because pocket-only was stronger. Full metrics, controls, checkpoint identity and inference boundaries are recorded in [atom3d-v2-integration-local.md](atom3d-v2-integration-local.md). This local checkpoint is not part of the public release and is not added to the V2.0 headline benchmark ledger.
 
 ## Scientific conclusion
 

@@ -93,9 +93,9 @@ Machine-readable run reports are in results/reproduction/ and the source/bundle 
 
 These are retrospective source-label replays from frozen prepared features and fixed model artifacts. They are not independent retraining, raw feature regeneration, prospective validation or proof of universal 3D superiority.
 
-### 6. ATOM3D historical result boundary
+### 6. ATOM3D V2.0 local extension boundary
 
-ATOM3D is not a verified V2.0 evaluation cohort. The official validation and test sets were each scored once by earlier non-V2.0 models; the test was scored with a separate 3,343D LightGBM model. Its final integrity audit prohibits rereading or new scoring. The archived point estimates and confidence intervals are documented in [the ATOM3D appendix](atom3d-prior-research.md), but they are not V2.0 scores and cannot be used as independent validation of the V2.0 checkpoint.
+A local V2.0 extension adds an ATOM3D pK head on the frozen ESM-2/Morgan representation and a 704D native residual expert. It was trained and evaluated only on the official 3,507-row TRAIN split using nested four-fold heuristic protein-cluster CV. The official validation/test were not opened; the test was already consumed by an earlier non-V2.0 model and must not be rescored. The native expert failed the deployment gate; pocket-only was stronger. This is retrospective development evidence, not independent validation or a headline V2.0 benchmark. See [the local integration record](atom3d-v2-integration-local.md).
 
 ### 7. Full benchmark retraining and clean-room reproduction
 

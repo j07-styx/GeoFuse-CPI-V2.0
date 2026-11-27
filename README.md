@@ -38,7 +38,7 @@ The frozen checkpoint also contains the separate native-structure residual exper
 
     python inference/predict_native_prepared.py --features path/to/prepared_noY.npz --out predictions.csv
 
-This expert is not jointly trained with the V2.0 48-dimensional 2D trunk. Raw PDB/SDF-to-704D feature generation is not yet a portable, clean-room workflow in this repository.
+The original public native expert is not jointly trained with the V2.0 48-dimensional 2D trunk; it uses the legacy 423D V5 anchor. A separate local ATOM3D extension now adds a fifth task head on the frozen V2.0 shared representation and a distinct V2.0-anchored 704D residual expert. That native expert is experimental and not deployment-eligible. See [the local V2.0 integration record](docs/atom3d-v2-integration-local.md). Generic raw PDB/SDF-to-704D user inference is still not a portable, clean-room workflow.
 
 ## Architecture at a glance
 
@@ -46,7 +46,7 @@ This expert is not jointly trained with the V2.0 48-dimensional 2D trunk. Raw PD
 - **Compound tower:** 2,048-bit Morgan fingerprints (radius 2; chirality enabled) projected to 48D.
 - **Feature fusion:** concatenation of protein, compound, elementwise product and absolute difference (192D).
 - **Shared trunk:** 192 → 96 → 48, with task-specific scalar heads and frozen similarity blending.
-- **Native structure expert:** separate 704D geometry residual on a legacy 423D V5 2D anchor; four source-trained folds. It is **not** end-to-end jointly trained with the V2.0 2D trunk.
+- **Original public native structure expert:** separate 704D geometry residual on a legacy 423D V5 2D anchor; four source-trained folds. The local ATOM3D extension has a distinct 704D residual to its V2.0 ATOM3D head, but it is experimental and not deployment-eligible.
 
 The released 2D inference implementation also contains a 128D auxiliary input named g, zero-filled by the portable Predictor; its training-time provenance is not fully documented. This is explicitly flagged rather than guessed. **GenSPARC is a benchmark/task head, not a GenSPARC input token.**
 
@@ -76,11 +76,13 @@ V2.0 has **20/24 numerical metric wins** against rounded published RMSE/Pearson 
 
 **Do not claim universal 3D superiority or independent multi-target external validation.** The external validation gate is blocked for lack of an eligible new cohort.
 
-## ATOM3D prior structural research (not a V2.0 benchmark)
+## ATOM3D prior research and the V2.0 local extension
 
-ATOM3D-LBA was important to GeoFuse's earlier structural R&D: it supported atom-pair descriptor development, pocket and shuffled-geometry controls, scaffold-cold experiments and ligand-pose sensitivity studies. Those experiments belong to separate historical branches, not the frozen V2.0 checkpoint or its headline results. The official ATOM3D validation and test splits were each evaluated once by earlier non-V2.0 models; the test audit prohibits rereading or rescoring. No frozen V2.0 ATOM3D score is established.
+ATOM3D-LBA supported earlier GeoFuse structural R&D, including atom-pair descriptors, pocket and shuffled-geometry controls, scaffold-cold experiments and pose-sensitivity studies. Those V13?V36 experiments remain historical branches. The original public frozen V2.0 checkpoint did not include ATOM3D.
 
-See [the ATOM3D research appendix](docs/atom3d-prior-research.md), its [aggregate summary](results/atom3d-historical-summary.json) and [evidence hashes](manifests/atom3d-evidence-manifest.json). No raw ATOM3D data, labels, structures, derived features or per-example predictions are redistributed.
+A separate local V2.0 extension has now been trained: it adds an ATOM3D pK head to the existing frozen ESM-2/Morgan shared representation. Its 704D native residual expert is retained for research only because it did not pass the geometry-specific deployment gate. The original DAVIS/KIBA/METZ/GenSPARC weights and headline results remain unchanged. The new checkpoint and ATOM3D-derived caches are local-only and are not part of the public release.
+
+See [the historical ATOM3D research appendix](docs/atom3d-prior-research.md), [the local V2.0 integration record](docs/atom3d-v2-integration-local.md), the [historical aggregate summary](results/atom3d-historical-summary.json) and [evidence hashes](manifests/atom3d-evidence-manifest.json). No raw ATOM3D data, labels, structures, derived features, per-example predictions or ATOM3D-trained weights are redistributed.
 
 To check the aggregate record without opening source data or rescoring the consumed test:
 

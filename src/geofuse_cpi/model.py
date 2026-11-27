@@ -1,17 +1,16 @@
-"""The exact V16/V17 47,361-parameter 704D residual architecture and 2D calibrator.
+"""The 47,361-parameter 704D bounded native-geometry residual architecture.
 
-Reference originals (read-only, not redistributed):
-- geometry_v6_20261115/v16_pairenergy_2Danchored_trainonly_20261116/
-  fit_v16_GROUP_OOF_LIGHTGBM_2D_ANCHOR_DIRECT_PAIR_ENERGY_REAL_SHUFFLE_POCKET_FIXED16EP.py
-- geometry_v6_20261115/v17_frozen_original_DynaV5_native_pair_704D_HiQBind_TRAIN349_20261116/
-  fit_v17_ACTUAL_DYNAV5_423D_2D_ANCHOR_PLUS_NATIVE704D_DIRECT_PAIR_4FOLD_TRAINONLY.py
+The same residual architecture is reused by the GeoFuse-CPI V2.0 ATOM3D
+native expert, where its target is an out-of-fold residual to the frozen V2.0
+2D task head. Historical V16/V17 reference implementations remain read-only
+and are not redistributed.
 """
 from torch import nn
 import torch
 
 
 class ExplicitPairResidual(nn.Module):
-    """Scaled, bounded correction to an independently calibrated GeoFuse-CPI 2D (v5) 2D prediction."""
+    """Scaled, bounded correction to an independently calibrated 2D affinity prediction."""
 
     def __init__(self, n_dim=704):
         super().__init__()
