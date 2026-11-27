@@ -12,6 +12,7 @@
 - Public metadata checker and frozen-inference verification script.
 - Historical ATOM3D appendix and aggregate-only evidence manifest.
 - ATOM3D V2.0 training/inference code and a local integration record. The trained ATOM3D checkpoint and all ATOM3D-derived feature caches remain excluded from the public release.
+- Optional predicted-structure preparation code, structure dependency pins, and a checksum-verifying installer for P2Rank/Vina. External binaries and generated structures/poses remain local and are not included.
 
 ## Excluded
 
@@ -25,7 +26,7 @@
 
 ## Intended use
 
-This is a frozen research inference and evidence release. It is not the production website backend or a hosted service. The raw 2D predictor accepts new valid SMILES and protein FASTA inputs. The native expert accepts prepared 423D/704D features; it does not create poses or infer native geometry from arbitrary raw structures.
+This is a frozen research inference and evidence release. It is not the production website backend or a hosted service. The raw 2D predictor accepts new valid SMILES and protein FASTA inputs. The native expert accepts prepared 423D/704D features. A separate optional research CLI can generate predicted protein–ligand poses and a 704D descriptor, but it does not apply the native expert to predicted poses or return a 3D affinity correction. The CLI is not yet wired into the production website frontend.
 
 ## Licensing
 

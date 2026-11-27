@@ -1,0 +1,7 @@
+# Install after inference/requirements-inference.txt.
+# Windows reference environment: Python 3.11.
+biopython==1.88
+scipy==1.17.1
+requests==2.34.2
+meeko==0.8.0
+gemmi==0.7.5

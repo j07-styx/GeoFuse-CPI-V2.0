@@ -60,12 +60,24 @@ For each of four source-trained folds, the native expert:
 
 The four fold outputs are averaged. Native, shuffled-geometry and pocket-only arms are retained as distinct controls.
 
-## 3. Accurate architecture description
+## 3. Optional predicted-structure preparation route
+
+A separate inference-preparation workflow is now available; it is **not an additional trained tower or a change to the V2.0 model architecture**.
+
+- Protein sequence can be matched to an explicit PDB/mmCIF or an AlphaFold DB model; public ESMFold folding is available only with explicit opt-in.
+- SMILES is converted to RDKit conformers.
+- P2Rank predicts candidate pockets.
+- Meeko prepares the receptor/ligand and AutoDock Vina generates candidate poses.
+- The selected docked pose can be converted into the 704D geometry descriptor.
+
+This workflow does not feed predicted-pose descriptors into the current ATOM3D native residual expert and does not produce a 3D affinity correction. The current native expert was trained on experimentally bound complexes, failed its deployment gate, and is not validated for docked poses. The optional route therefore prepares structural research inputs while the 2D task head remains the affinity estimator. See [structure-aware inference](structure-aware-inference.md).
+
+## 4. Accurate architecture description
 
 Use: **a frozen hybrid research release containing a 2D protein/compound interaction predictor and a separately trained native-structure residual expert.**
 
 Do not describe it as an end-to-end jointly trained 2D+3D network. Do not depict GenSPARC as an input token. GenSPARC is a benchmark/task in the released evaluation; it is not the native ligand–pocket geometry input.
 
-## 4. Known implementation-documentation gap
+## 5. Known implementation-documentation gap
 
 The auxiliary `g` input is present in the released inference class, projected into the protein-side representation, and zero-filled by the portable Predictor. Its training-time feature provenance is not sufficiently described in the public release files. This is an explicit documentation/reproducibility item to resolve before making claims about that feature. It is intentionally not guessed here.

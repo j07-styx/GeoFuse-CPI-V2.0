@@ -2,7 +2,7 @@
 
 **Frozen research release for GeoFuse-CPI V2.0.** This repository records the single frozen hybrid model, its architecture, benchmark evidence, provenance, inference implementation and reproducibility boundaries. It is separate from the production website repository and legacy experimental branches.
 
-> **Release status:** frozen inference release candidate. The published checkpoint can now be run from raw SMILES + protein FASTA for the 2D predictor. Native-structure inference is available for prepared 423D/704D features. Full independent retraining and clean-room reproduction of every paper table are not yet established.
+> **Release status:** frozen inference release candidate with an optional predicted-structure preparation route. Raw SMILES + protein FASTA 2D inference is available; raw sequence/SMILES can also be used to prepare a predicted protein–ligand complex and 704D research descriptor. The predicted-pose descriptor is not used for a 3D affinity correction. Full independent retraining and clean-room reproduction of every paper table are not yet established.
 
 ## Frozen artifact identity
 
@@ -38,7 +38,13 @@ The frozen checkpoint also contains the separate native-structure residual exper
 
     python inference/predict_native_prepared.py --features path/to/prepared_noY.npz --out predictions.csv
 
-The original public native expert is not jointly trained with the V2.0 48-dimensional 2D trunk; it uses the legacy 423D V5 anchor. A separate local ATOM3D extension now adds a fifth task head on the frozen V2.0 shared representation and a distinct V2.0-anchored 704D residual expert. That native expert is experimental and not deployment-eligible. See [the local V2.0 integration record](docs/atom3d-v2-integration-local.md). Generic raw PDB/SDF-to-704D user inference is still not a portable, clean-room workflow.
+The original public native expert is not jointly trained with the V2.0 48-dimensional 2D trunk; it uses the legacy 423D V5 anchor. A separate local ATOM3D extension adds a fifth task head on the frozen V2.0 shared representation and a distinct V2.0-anchored 704D residual expert. That native expert is experimental and not deployment-eligible. See [the local V2.0 integration record](docs/atom3d-v2-integration-local.md). The optional [predicted-structure preparation route](docs/structure-aware-inference.md) can generate a docked complex and 704D descriptor from raw sequence/SMILES, but it does not apply the unvalidated native expert to predicted poses.
+
+## Predicted-structure preparation and docking
+
+An optional research route is available in `inference/structure_pipeline.py`. It can use a sequence-matched AlphaFold DB model, an explicitly supplied PDB/mmCIF, or the public ESMFold API (requires `--allow-public-esmfold` because the sequence is sent to an external service). It generates RDKit ligand conformers, predicts pockets with P2Rank, docks with AutoDock Vina, and writes a 704D descriptor from the selected docked pose.
+
+The route keeps the V2.0 2D affinity estimate separate. It does **not** convert Vina scores into pKd or apply the current ATOM3D native residual expert to predicted poses. See [Predicted-structure inference](docs/structure-aware-inference.md) for installation, usage, privacy and validation boundaries.
 
 ## Architecture at a glance
 
@@ -105,7 +111,7 @@ The scripts verify source SHA-256 values and compare recomputed metrics/interval
 
 ## What is and is not independently reproducible
 
-**Available now:** frozen checkpoint inference; raw 2D SMILES+FASTA path; prepared native expert inference; exact native prepared-prediction parity; OpenBind/BioLiP3 source-label replay scripts.
+**Available now:** frozen checkpoint inference; raw 2D SMILES+FASTA path; prepared native expert inference; optional predicted-structure generation, pocket prediction, docking and 704D descriptor extraction; exact native prepared-prediction parity; OpenBind/BioLiP3 source-label replay scripts. The predicted-pose descriptor is not a validated 3D affinity input.
 
 **Still not established:** original 2D training rerun from raw source data; full clean-room regeneration of ESM and native features; complete DAVIS/KIBA/METZ double-cold table regeneration from a fresh clone; GenSPARC raw-feature regeneration; independent clean-machine retraining. The auxiliary g training-time feature provenance also remains unresolved.
 

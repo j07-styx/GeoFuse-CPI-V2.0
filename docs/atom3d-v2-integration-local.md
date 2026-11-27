@@ -90,6 +90,12 @@ pK = predictor.predict("atom3d", smiles, esm2_embeddings)
 
 The native-geometry helper is `inference/predict_atom3d_native_prepared.py`. It requires a precomputed 704D descriptor from an experimentally bound ligand-pocket complex. It does not generate a pose or perform docking. Because the expert failed its validation gate, it refuses normal inference unless `--allow-experimental` is explicitly supplied.
 
+## Separate predicted-structure preparation route
+
+The V2.0 repository now also includes an optional raw sequence/SMILES preparation workflow in `inference/structure_pipeline.py`. It can retrieve a sequence-matched AlphaFold DB model, use an explicitly supplied PDB/mmCIF, or opt in to the public ESMFold API; then it generates RDKit ligand conformers, predicts pockets with P2Rank, docks with AutoDock Vina, and extracts a 704D descriptor from the selected docked pose.
+
+This is a separate inference-preparation workflow, not a new ATOM3D training cohort or a change to the V2.0 shared architecture. The generated docked-pose descriptor is **not** fed into the ATOM3D native residual expert and no 3D affinity correction is returned. The native expert was trained on experimentally bound complexes and failed its deployment gate; it is not validated on predicted/docked poses. Full details and software smoke-test boundaries are in [structure-aware-inference.md](structure-aware-inference.md).
+
 ## Claim boundaries
 
 - ATOM3D is now represented by an additional task-specific head in a local GeoFuse-CPI V2.0 checkpoint.

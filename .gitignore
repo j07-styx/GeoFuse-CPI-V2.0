@@ -13,6 +13,7 @@
 *.csv
 *.tsv
 *.sdf
+*.pdbqt
 *.mol2
 *.pdb
 *.cif

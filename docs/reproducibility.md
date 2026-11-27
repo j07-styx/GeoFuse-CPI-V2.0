@@ -101,6 +101,31 @@ A local V2.0 extension adds an ATOM3D pK head on the frozen ESM-2/Morgan represe
 
 **Not established.** The repository does not contain the original 2D training script, all original raw source feature files, complete cross-source split manifests, or all raw benchmark inputs needed to recreate every DAVIS/KIBA/METZ/GenSPARC table from scratch. The original local release verifier and smoke test passed on the research machine, but this is not equivalent to an independent clean-machine retraining run.
 
+### 8. Predicted-structure preparation and docking smoke tests
+
+The optional structure-preparation CLI is implemented in `inference/structure_pipeline.py`. The local Windows environment used P2Rank 2.5.1, AutoDock Vina 1.2.7, Meeko 0.8.0, Gemmi 0.7.5, RDKit 2025.09.2, Biopython 1.88 and SciPy 1.17.1. P2Rank and Vina binaries are downloaded by `scripts/install_structure_tools.ps1`, SHA-256 checked, and kept outside Git.
+
+The 2D prediction path was run with aspirin and `examples/AAK1.fasta` using both checkpoints and the same cached, checksum-pinned ESM-2 650M weights:
+
+- Public frozen V2.0 DAVIS output: 5.476265008935864 pKd.
+- Local ATOM3D-extended checkpoint DAVIS output: 5.476265008935864 pKd.
+- Absolute difference: exactly 0.0. This confirms the existing DAVIS head output was preserved for this smoke input; it is not an accuracy or affinity-measurement claim.
+
+The structure route was smoke-tested on the public 142-residue human hemoglobin-alpha sequence with aspirin as a **software integration test only**:
+
+| Protein structure source | Sequence identity / coverage | Mean pLDDT | Top P2Rank probability | Vina score | Geometry |
+|---|---:|---:|---:|---:|---|
+| AlphaFold DB API (P69905) | 1.00 / 1.00 | 98.06 | 0.964 | -5.947 kcal/mol | finite 704D |
+| ESMFold API (explicit opt-in) | 1.00 / 1.00 | 94.69 | 0.964 | -5.998 kcal/mol | finite 704D |
+
+A separate user-supplied AlphaFold PDB test also completed and generated a finite 704D descriptor. The tests demonstrate that structure acquisition, sequence matching, P2Rank, Meeko preparation, Vina docking, pose reconstruction and descriptor extraction execute end-to-end. They do **not** demonstrate that aspirin binds hemoglobin, that the predicted poses are accurate, or that Vina scores correlate with measured affinity.
+
+The current ATOM3D 704D native residual expert is deliberately **not applied** to these docked poses. It was trained on experimentally bound complexes, failed its deployment gate against the pocket-only control, and has not been validated on predicted-pose inputs. The pipeline therefore returns a 2D task-head estimate plus a computationally predicted complex and 704D research descriptor—not a 3D-corrected affinity.
+
+The ESMFold API receives the protein sequence only when the user passes `--allow-public-esmfold`. The public service is rate-limited and should not be used for bulk folding or confidential sequences. The current hosted route has a conservative 400-residue cap. A local PDB/mmCIF or a sequence-matched AlphaFold DB UniProt accession avoids sending the raw sequence to ESMFold.
+
+See [structure-aware-inference.md](structure-aware-inference.md) for installation, commands and output descriptions.
+
 ## Important architecture/reproducibility caveat: auxiliary g
 
 The portable 2D model class has a 128-dimensional auxiliary input g; the published raw-input wrapper supplies zeros. The checkpoint contains nonzero weights for the g projection, but the original training-time provenance and values for this input are not recoverable from the public inference bundle. Do not invent a biological interpretation for it, and do not claim the full training pipeline is reproduced until the original source is recovered and audited.

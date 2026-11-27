@@ -16,7 +16,19 @@ These constraints are part of the research record and must accompany any present
 3. OpenBind is one protease family. Native geometry RMSE (1.7986) is slightly worse than calibrated 2D RMSE (1.7917).
 4. On OpenBind, the prespecified REAL-vs-SHUFFLED MAE interval crosses zero. A favorable ranking comparison does not rescue the failed primary absolute-error criterion.
 5. Experimentally bound native poses make this a structure-conditioned rescoring experiment, not pose-free prospective screening.
-6. The native prepared-feature replay is reproducible from the supplied label-free feature bundles. This does not establish a portable raw PDB/SDF-to-704D feature-generation workflow.
+6. The native prepared-feature replay is reproducible from the supplied label-free feature bundles. A separate predicted-structure CLI now generates a 704D descriptor from a docked pose, but that is not the same as reproducing the native expert's experimentally bound training-feature pipeline and is not applied to the native expert.
+
+## Predicted-structure preparation limits
+
+1. The optional raw sequence/SMILES route can obtain a sequence-matched AlphaFold DB model or, with explicit consent, submit a sequence to the public ESMFold API. These are predicted structures, not experimental structures.
+2. RDKit conformers are starting ligand geometries. P2Rank predicts candidate pockets; its probability is not compound-specific binding probability.
+3. AutoDock Vina produces approximate docking scores and poses. A Vina score is not pKd, Ki, Kd or experimental affinity.
+4. The route can extract a 704D descriptor from a docked pose, but the descriptor is not fed into the current native residual expert. That expert was trained on experimentally bound complexes, failed its deployment gate, and has not been validated on docked poses.
+5. No 3D affinity correction, docking accuracy claim, or 2D+3D superiority claim is made from this route. The 2D task head remains the affinity estimator.
+6. Public ESMFold sequence submission is opt-in, rate-limited and unsuitable for bulk or confidential sequences. The current hosted-API path has a conservative 400-residue limit.
+7. The CLI is a local research/inference tool; it is not yet wired into the production website frontend.
+8. Docking uses a rigid receptor and the supplied SMILES protonation/tautomer state. It does not model protein flexibility, induced fit, solvent waters, metal/cofactor effects, or pH-dependent ligand-state enumeration.
+9. P2Rank pocket ranking and Vina docking are heuristic candidate-generation stages; they require separate pose-quality and external affinity validation before being used for screening decisions.
 
 ## ATOM3D scope and test-set integrity
 
@@ -39,6 +51,7 @@ The frozen gate is BLOCKED_NO_ELIGIBLE_COHORT. No new independent multi-target e
 - The 128-dimensional auxiliary input g in the 2D inference class is zero-filled by the released Predictor, and its training-time semantics are not fully documented.
 - The original complete V2.0 2D training script and full training pipeline were not present in the preserved release checkout.
 - The public repository includes the frozen checkpoint and training-only anchors, but not raw affinity datasets, protected labels, or ESM-2 weights.
+- The optional predicted-structure CLI can generate a docked-pose 704D descriptor, but it does not provide a validated 3D affinity prediction and is not yet wired into the production website frontend.
 - Full raw-input portability for all GenSPARC/native feature paths is not established.
 
 ## Reproducibility interpretation
