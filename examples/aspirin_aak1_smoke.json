@@ -1,0 +1,11 @@
+{
+  "purpose": "Software smoke test only; not a measured affinity or independent accuracy validation.",
+  "protein_name": "AAK1",
+  "protein_sequence_source": "Existing DAVIS glossary entry in the local project.",
+  "compound_name": "aspirin",
+  "smiles": "CC(=O)Oc1ccccc1C(=O)O",
+  "assay": "davis",
+  "expected_model_output_pKd": 5.476265008935864,
+  "absolute_tolerance": 0.001,
+  "geometry_used": false
+}

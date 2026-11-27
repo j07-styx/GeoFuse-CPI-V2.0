@@ -1,0 +1,5 @@
+# Tested on Windows, Python 3.11.9, CPU.
+numpy==2.4.6
+torch==2.14.0
+rdkit==2025.9.2
+fair-esm==2.0.0

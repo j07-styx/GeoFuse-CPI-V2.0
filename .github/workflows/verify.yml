@@ -1,0 +1,20 @@
+name: verify-frozen-record
+
+on:
+  push:
+    branches: [main, "reproducibility/**"]
+  pull_request:
+  workflow_dispatch:
+
+jobs:
+  public-integrity:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+      - name: Verify aggregate and artifact identities
+        run: python scripts/verify_public_records.py
+      - name: Compile Python sources
+        run: python -m compileall -q inference scripts reproduce.py reproduce_biolip3.py evaluate.py src

@@ -1,0 +1,72 @@
+{
+  "model": "GeoFuse-CPI V2.0",
+  "run_date": "2026-11-27",
+  "status": "PASS",
+  "environment": {
+    "os": "Windows",
+    "python": "3.11.9",
+    "torch": "2.14.0",
+    "numpy": "2.4.6",
+    "lightgbm": "4.7.0",
+    "scikit_learn": "1.9.1",
+    "scipy": "1.17.1",
+    "joblib": "1.6.0",
+    "fair_esm": "2.0.0",
+    "rdkit": "2025.9.2"
+  },
+  "source_files": {
+    "openbind_zenodo_record": "22142262",
+    "openbind_archive_bytes": 124498453,
+    "openbind_archive_sha256": "e0d2e38eddf75ebf4247aff0fe28ae15dfa25ecb30deeb4cf950ae184b304a25",
+    "biolip3_source_url": "https://zhanggroup.org/BioLiP/lh_3affinity_data/00_Experiments/experiments_affinity.tsv",
+    "biolip3_source_bytes": 36087375,
+    "biolip3_source_sha256": "c8467ed78b4e78889b417d752e8da4973bfd3a95fb5dc6f1244cafcc8249d0ab"
+  },
+  "replay_inputs": {
+    "openbind_bundle_sha256": "3dc945c3e68d9459319460f32115ede09688fb1b692b97c4f12baba3c09d9984",
+    "biolip3_bundle_sha256": "85aecd9a195e5fa93046bfe20be49aa324cd673a9d14ee25a06f460d963ee607",
+    "openbind_exact_prediction_parity_max_abs": 0.0,
+    "biolip3_exact_prediction_parity_max_abs": 0.0
+  },
+  "openbind": {
+    "status": "PASS",
+    "n_scored": 482,
+    "scaffold_clusters": 264,
+    "metric_checks": 60,
+    "bootstrap_interval_checks": 12,
+    "rmse": {
+      "calibrated_2d": 1.7917423498,
+      "native_real": 1.7985887449,
+      "shuffled_geometry": 1.8221892260,
+      "pocket_only": 1.9162156093,
+      "raw_v5": 0.8803038634,
+      "perceiver_original_full12": 1.2884533507
+    },
+    "interpretation": "Native geometry RMSE is slightly worse than calibrated 2D on this single-target cohort. REAL-minus-SHUFFLED MAE interval crosses zero."
+  },
+  "biolip3": {
+    "status": "PASS",
+    "cohorts": [37, 33],
+    "posthoc_pooled_n": 70,
+    "metric_checks": 105,
+    "bootstrap_interval_checks": 8,
+    "rmse_posthoc_pooled": {
+      "native_real": 1.3184248992,
+      "shuffled_geometry": 1.3438041989,
+      "calibrated_2d": 1.5760205479,
+      "perceiver_original_hIQ349": 1.9147797218,
+      "perceiver_original_davis45_hIQ349": 1.8624320618
+    },
+    "real_minus_shuffled_mae_95pct_ci": [-0.0564074776, 0.0247703173],
+    "interpretation": "Retrospective native geometry point estimate is lower than calibrated 2D on the pooled cohort, but the REAL-minus-SHUFFLED MAE interval crosses zero. Pooled cohort is post hoc and mixes Ki/Kd."
+  },
+  "output_reports": [
+    "results/reproduction/openbind-reproduction.json",
+    "results/reproduction/biolip3-reproduction.json"
+  ],
+  "commands": [
+    "python reproduce.py --archive data/OpenBind_EV-A71_2A.zip --out runs/openbind-reproduction.json",
+    "python reproduce_biolip3.py --source data/experiments_affinity.tsv --out runs/biolip3-reproduction.json"
+  ],
+  "scope": "Source-label replay from frozen prepared features and fixed model artifacts. This is not independent retraining, raw feature regeneration, or prospective validation."
+}

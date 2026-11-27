@@ -1,14 +1,44 @@
 # GeoFuse-CPI V2.0
 
-**Dedicated research record for the frozen GeoFuse-CPI V2.0 candidate.** This repository contains methodology, architecture documentation, aggregate benchmark evidence, provenance and reproducibility boundaries. It is separate from the production website repository and legacy DynaCPI experimental repositories.
+**Frozen research release for GeoFuse-CPI V2.0.** This repository records the single frozen hybrid model, its architecture, benchmark evidence, provenance, inference implementation and reproducibility boundaries. It is separate from the production website repository and legacy experimental branches.
 
-> **Status:** frozen research-release candidate; not independently validated for production replacement and not a deployable model package.
+> **Release status:** frozen inference release candidate. The published checkpoint can now be run from raw SMILES + protein FASTA for the 2D predictor. Native-structure inference is available for prepared 423D/704D features. Full independent retraining and clean-room reproduction of every paper table are not yet established.
 
 ## Frozen artifact identity
 
-- Checkpoint SHA-256: `b30fd7f5054ea6352d53c2dc854ce0af9cd7d163970c5c4b4b0b7591772d97f4`
-- Prediction archive SHA-256: `b8f935e2115ead2b83e247477118adedd38559acf368b80eabafc160240f0555`
-- One frozen checkpoint is used for the headline V2.0 ledger. No V363/V499/v6/V48 scores are mixed into it.
+- Checkpoint SHA-256: b30fd7f5054ea6352d53c2dc854ce0af9cd7d163970c5c4b4b0b7591772d97f4
+- Training-anchor SHA-256: 42ddd4d3af1f00f15bf96985adaaa15b821fb67fe6a5f2fddf3fa796a4773769
+- Inference asset archive SHA-256: 71148521ae43187fcce4183cd7d388dc79daa04ebd6ace98bfacc08685a37017
+- ESM-2 650M weights are downloaded separately and checked against SHA-256 ea9d0522b335a8778dea6535a65301f10208dece28cd5865482b0b1fc446168c.
+- One frozen checkpoint is used for the V2.0 headline ledger. No V363/V499/v6/V48 results are mixed into the 2D headline results.
+
+## Quick start: raw 2D inference
+
+Use Python 3.11.9. The tested reference environment is Windows CPU.
+
+    python -m pip install torch==2.14.0
+    python -m pip install -r inference/requirements-inference.txt
+    python scripts/prepare_inference_assets.py
+    python scripts/download_esm2_weights.py
+    python inference/predict.py --smiles "CC(=O)Oc1ccccc1C(=O)O" --fasta examples/AAK1.fasta --assay davis
+
+The command returns a model estimate in the selected assay's scale. DAVIS and METZ are reported as pKd; KIBA is reported on its own KIBA scale. This is not an experimental measurement.
+
+To run the bundled software smoke test:
+
+    python scripts/verify_frozen_inference.py --raw
+
+## Native-structure inference
+
+The frozen checkpoint also contains the separate native-structure residual expert. It accepts **prepared, label-free features**, not raw PDB/SDF structures:
+
+- x2d: (N, 423) legacy V5 2D anchor context
+- real, shuffled, pocket: each (N, 704) geometry descriptors
+- optional unique ids
+
+    python inference/predict_native_prepared.py --features path/to/prepared_noY.npz --out predictions.csv
+
+This expert is not jointly trained with the V2.0 48-dimensional 2D trunk. Raw PDB/SDF-to-704D feature generation is not yet a portable, clean-room workflow in this repository.
 
 ## Architecture at a glance
 
@@ -16,9 +46,9 @@
 - **Compound tower:** 2,048-bit Morgan fingerprints (radius 2; chirality enabled) projected to 48D.
 - **Feature fusion:** concatenation of protein, compound, elementwise product and absolute difference (192D).
 - **Shared trunk:** 192 → 96 → 48, with task-specific scalar heads and frozen similarity blending.
-- **Native structure expert:** separate 704D geometry residual on a legacy 423D v5 2D anchor; four source-trained folds. It is **not** end-to-end jointly trained with the V2.0 2D trunk.
+- **Native structure expert:** separate 704D geometry residual on a legacy 423D V5 2D anchor; four source-trained folds. It is **not** end-to-end jointly trained with the V2.0 2D trunk.
 
-The released 2D inference implementation also contains a 128D auxiliary input named `g`, zero-filled by the portable Predictor; its training-time provenance is not fully documented. This is explicitly flagged rather than guessed. **GenSPARC is a benchmark/task head, not a GenSPARC input token.**
+The released 2D inference implementation also contains a 128D auxiliary input named g, zero-filled by the portable Predictor; its training-time provenance is not fully documented. This is explicitly flagged rather than guessed. **GenSPARC is a benchmark/task head, not a GenSPARC input token.**
 
 See [Architecture](docs/architecture.md) and [Methodology](docs/methodology.md).
 
@@ -46,20 +76,31 @@ V2.0 has **20/24 numerical metric wins** against rounded published RMSE/Pearson 
 
 **Do not claim universal 3D superiority or independent multi-target external validation.** The external validation gate is blocked for lack of an eligible new cohort.
 
-## Reproducibility
+## Reproducing the native analyses
 
-The original local V2.0 release verifier and its inference smoke check both passed on the original Windows/Python 3.11 research environment. This public repository contains aggregate records and a metadata checker, not model weights or raw datasets. A fresh clone alone cannot reproduce all model predictions.
+The repository includes the frozen native expert implementation, label-free prepared feature/replay bundles and replay scripts. First verify exact prediction parity without accessing affinity labels:
 
-Run the public-record check:
+    python reproduce.py --inference-only
+    python reproduce_biolip3.py --inference-only
 
-```bash
-python scripts/verify_public_records.py
-```
+To recompute metrics and intervals from the original source affinity files:
 
-See [Reproducibility](docs/reproducibility.md), [Data provenance](docs/data-provenance.md) and [Limitations](docs/limitations-and-claim-boundaries.md).
+    python -m pip install -r requirements-replay.txt
+    python reproduce.py --archive data/OpenBind_EV-A71_2A.zip --out runs/openbind-reproduction.json
+    python reproduce_biolip3.py --source data/experiments_affinity.tsv --out runs/biolip3-reproduction.json
 
-## Repository boundaries
+The scripts verify source SHA-256 values and compare recomputed metrics/intervals with frozen references. See [Reproducibility](docs/reproducibility.md) and [Data provenance](docs/data-provenance.md).
 
-This repository contains V2.0 only. It does not contain the production v6 + V48 service, V363/V499 or later fusion experiments, website/frontend/backend deployment code, raw datasets, protected labels, checkpoint binaries or per-example predictions.
+## What is and is not independently reproducible
 
-No open-source license is assigned pending ownership and third-party compatibility review. See [Release scope](docs/release-scope.md).
+**Available now:** frozen checkpoint inference; raw 2D SMILES+FASTA path; prepared native expert inference; exact native prepared-prediction parity; OpenBind/BioLiP3 source-label replay scripts.
+
+**Still not established:** original 2D training rerun from raw source data; full clean-room regeneration of ESM and native features; complete DAVIS/KIBA/METZ double-cold table regeneration from a fresh clone; GenSPARC raw-feature regeneration; independent clean-machine retraining. The auxiliary g training-time feature provenance also remains unresolved.
+
+See [Reproducibility](docs/reproducibility.md) and [the reproduction gap register](docs/reproduction-gap-register.md).
+
+## Repository boundaries and licensing
+
+This repository contains the frozen V2.0 inference checkpoint and training-only anchor arrays, inference/replay code, label-free prepared replay inputs, aggregate results and methodology. It does not distribute raw affinity labels, raw benchmark structures, ESM-2 weights or the per-example PRED_NOY benchmark prediction archive.
+
+OpenBind source data are CC0 1.0. BioLiP3 is freely available for non-commercial research; users must follow the source provider's terms. No license is assigned to this GeoFuse-CPI repository pending ownership and third-party compatibility review. Public visibility does not itself grant reuse rights. See [NOTICE](NOTICE.md) for source acknowledgements and data-use boundaries.

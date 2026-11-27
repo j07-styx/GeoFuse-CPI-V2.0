@@ -1,0 +1,147 @@
+{
+  "status": "PASS",
+  "n": 482,
+  "scaffold_clusters": 264,
+  "prediction_parity_max_abs": {
+    "2d": 0.0,
+    "real": 0.0,
+    "shuffled": 0.0,
+    "pocket": 0.0,
+    "raw": 0.0
+  },
+  "metric_checks": 60,
+  "bootstrap_interval_checks": 12,
+  "metrics": {
+    "calibrated_original_DynaV5_2D": {
+      "n": 482,
+      "MSE": 3.210340648008877,
+      "RMSE": 1.791742349783829,
+      "MAE": 1.6388488126954623,
+      "R2": -3.2241743266753176,
+      "Cindex": 0.6571656600517688,
+      "Pearson_r": 0.5093702878000823,
+      "Spearman_rho": 0.48982613924718055,
+      "mean_prediction": 6.755223540057327,
+      "mean_observed_pKD": 5.130090041493775
+    },
+    "original_DynaV5_plus_REAL_native_pair_geom": {
+      "n": 482,
+      "MSE": 3.2349214732245914,
+      "RMSE": 1.7985887448843305,
+      "MAE": 1.6408545043810483,
+      "R2": -3.2565178385294606,
+      "Cindex": 0.6639689387402934,
+      "Pearson_r": 0.48224113881129366,
+      "Spearman_rho": 0.5051017990176797,
+      "mean_prediction": 6.7527329430447125,
+      "mean_observed_pKD": 5.130090041493775
+    },
+    "original_DynaV5_plus_SHUFFLED_native_pair_geom": {
+      "n": 482,
+      "MSE": 3.320373575509176,
+      "RMSE": 1.8221892260435457,
+      "MAE": 1.6437180128172342,
+      "R2": -3.3689559303733443,
+      "Cindex": 0.6247368421052631,
+      "Pearson_r": 0.36512959063869527,
+      "Spearman_rho": 0.3775310108446614,
+      "mean_prediction": 6.749967048420621,
+      "mean_observed_pKD": 5.130090041493775
+    },
+    "original_DynaV5_plus_POCKET_only": {
+      "n": 482,
+      "MSE": 3.6718822611901047,
+      "RMSE": 1.9162156092648095,
+      "MAE": 1.760079570480588,
+      "R2": -3.831471946104476,
+      "Cindex": 0.6527264883520276,
+      "Pearson_r": 0.4272039168966992,
+      "Spearman_rho": 0.460660443230573,
+      "mean_prediction": 6.8743293199306095,
+      "mean_observed_pKD": 5.130090041493775
+    },
+    "raw_DAVIS_v5": {
+      "n": 482,
+      "MSE": 0.7749348919129663,
+      "RMSE": 0.8803038633977283,
+      "MAE": 0.7319101631718552,
+      "R2": -0.019661286503640962,
+      "Cindex": 0.509434857635893,
+      "Pearson_r": 0.04987336104814357,
+      "Spearman_rho": 0.02888861538673068,
+      "mean_prediction": 5.210647989605472,
+      "mean_observed_pKD": 5.130090041493775
+    },
+    "original_full12_DAVISpretrained_Perceiver_ensemble": {
+      "n": 482,
+      "MSE": 1.6601120370472544,
+      "RMSE": 1.2884533507454798,
+      "MAE": 1.1191762467051938,
+      "R2": -1.1843796080173123,
+      "Cindex": 0.46575496117342535,
+      "Pearson_r": -0.09429145209166857,
+      "Spearman_rho": -0.10139772133710868,
+      "mean_prediction": 6.078284042257491,
+      "mean_observed_pKD": 5.130090041493775
+    }
+  },
+  "confidence_intervals": {
+    "REAL_minus_SHUFFLED": {
+      "MAE_delta_95pct_CI": [
+        -0.03326723289101469,
+        0.03054215548035602
+      ],
+      "RMSE_delta_95pct_CI": [
+        -0.05480909429814125,
+        0.00999928356801402
+      ],
+      "Cindex_delta_95pct_CI": [
+        0.020340401267465905,
+        0.056204749382520826
+      ]
+    },
+    "REAL_minus_POCKET": {
+      "MAE_delta_95pct_CI": [
+        -0.15221778653352744,
+        -0.08935590168517807
+      ],
+      "RMSE_delta_95pct_CI": [
+        -0.14856914884556194,
+        -0.08921035748025873
+      ],
+      "Cindex_delta_95pct_CI": [
+        -0.0038070666477079762,
+        0.025635703260396662
+      ]
+    },
+    "REAL_minus_calibrated_2D": {
+      "MAE_delta_95pct_CI": [
+        -0.031341836492149375,
+        0.03345198761909527
+      ],
+      "RMSE_delta_95pct_CI": [
+        -0.02784092649333012,
+        0.03923196338013073
+      ],
+      "Cindex_delta_95pct_CI": [
+        -0.008543256663618446,
+        0.02357595549474789
+      ]
+    },
+    "REAL_minus_full12_original_Perceiver": {
+      "MAE_delta_95pct_CI": [
+        0.45458528557598926,
+        0.5863247066508013
+      ],
+      "RMSE_delta_95pct_CI": [
+        0.4550994389995358,
+        0.5606570855399845
+      ],
+      "Cindex_delta_95pct_CI": [
+        0.14419094172546365,
+        0.23972203841063844
+      ]
+    }
+  },
+  "scope": "Historical prepared-feature inference; frozen Perceiver outputs, not independently retrained"
+}

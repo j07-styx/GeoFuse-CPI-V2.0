@@ -1,0 +1,2 @@
+# Additional dependency for prepared native-geometry inference.
+lightgbm==4.7.0

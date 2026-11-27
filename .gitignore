@@ -1,4 +1,4 @@
-# Do not commit model weights, datasets, labels, structures, or local environments.
+# Do not commit extracted weights, downloaded datasets, labels, structures, or local environments.
 *.pt
 *.pth
 *.ckpt
@@ -17,9 +17,11 @@
 *.pdb
 *.cif
 *.mmcif
+*.partial
 .env
 .venv/
 venv/
+models/
 __pycache__/
 .ipynb_checkpoints/
 data/

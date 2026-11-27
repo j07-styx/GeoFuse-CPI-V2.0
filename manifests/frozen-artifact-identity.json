@@ -1,17 +1,49 @@
 {
   "model": "GeoFuse-CPI V2.0",
-  "status": "FROZEN_RESEARCH_RELEASE_CANDIDATE",
+  "status": "FROZEN_RESEARCH_INFERENCE_RELEASE_CANDIDATE",
   "checkpoint_sha256": "b30fd7f5054ea6352d53c2dc854ce0af9cd7d163970c5c4b4b0b7591772d97f4",
   "prediction_archive_sha256": "b8f935e2115ead2b83e247477118adedd38559acf368b80eabafc160240f0555",
-  "source_release_manifest": "research_v2/RELEASE_MANIFEST.json in the original local research checkout",
-  "checkpoint_distributed_in_this_repository": false,
-  "raw_datasets_distributed_in_this_repository": false,
-  "protected_labels_or_per_example_predictions_distributed": false,
+  "training_anchor_sha256": "42ddd4d3af1f00f15bf96985adaaa15b821fb67fe6a5f2fddf3fa796a4773769",
+  "inference_asset_archive": "inference/assets/geofuse-cpi-v2.0-inference-assets.zip",
+  "inference_asset_archive_sha256": "71148521ae43187fcce4183cd7d388dc79daa04ebd6ace98bfacc08685a37017",
+  "esm2_checkpoint_url": "https://dl.fbaipublicfiles.com/fair-esm/models/esm2_t33_650M_UR50D.pt",
+  "esm2_checkpoint_bytes": 2604537549,
+  "esm2_checkpoint_sha256": "ea9d0522b335a8778dea6535a65301f10208dece28cd5865482b0b1fc446168c",
+  "esm2_weights_distributed": false,
+  "checkpoint_distributed": true,
+  "training_only_anchors_distributed": true,
+  "per_example_benchmark_prediction_archive_distributed": false,
+  "raw_datasets_or_affinity_labels_distributed": false,
+  "replay_bundles": {
+    "openbind": {
+      "path": "reproduction/openbind-replay.zip",
+      "sha256": "3dc945c3e68d9459319460f32115ede09688fb1b692b97c4f12baba3c09d9984",
+      "scope": "660 label-free prepared features and frozen reference predictions"
+    },
+    "biolip3": {
+      "path": "reproduction/biolip3-replay.zip",
+      "sha256": "85aecd9a195e5fa93046bfe20be49aa324cd673a9d14ee25a06f460d963ee607",
+      "scope": "73 label-free prepared features and frozen reference predictions"
+    }
+  },
   "original_local_release_verification": {
     "verify_release_py": "PASS",
     "verify_release_py_smoke": "PASS",
     "environment": "Original Windows research machine, Python 3.11 environment",
     "note": "Smoke verification checks artifact integrity and finite example inference; it is not a new accuracy evaluation or clean-room retraining."
   },
-  "scope_note": "This public repository documents methodology, aggregate results, provenance and reproducibility boundaries. It is not a deployable model package."
+  "public_replay_verification": {
+    "raw_2d_smoke": "PASS",
+    "openbind_inference_only": "PASS",
+    "biolip3_inference_only": "PASS",
+    "openbind_source_label_replay": "PASS",
+    "biolip3_source_label_replay": "PASS",
+    "openbind_metric_checks": 60,
+    "openbind_bootstrap_interval_checks": 12,
+    "biolip3_metric_checks": 105,
+    "biolip3_bootstrap_interval_checks": 8,
+    "maximum_absolute_prediction_difference": 0.0,
+    "environment": "Original Windows research machine, Python 3.11.9 CPU environment"
+  },
+  "scope_note": "Frozen inference release with raw 2D sequence input and prepared-feature native expert input. Native BioLiP3/OpenBind source-label replays pass from prepared features. Not a complete independently retrainable release."
 }
