@@ -16,6 +16,10 @@ BioLiP3 source data are provided by the Zhang Lab. The provider states that BioL
 
 The small prepared replay bundle contains derived, label-free feature arrays and frozen reference predictions for reproducing the reported retrospective analysis. It does not include the raw affinity table or raw structures. This repository does not grant rights beyond those available from the original source.
 
+## ATOM3D-LBA
+
+The ATOM3D LBA dataset is distributed under the Creative Commons Attribution-NonCommercial-NoDerivatives (CC BY-NC-ND) license. Obtain the dataset from the [official Zenodo record](https://doi.org/10.5281/zenodo.4914718), cite the ATOM3D paper and follow the current source terms. This repository does not redistribute ATOM3D raw data, affinity labels, structures, derived feature arrays or per-example predictions. The aggregate historical research summary is documented separately and is not a redistribution of the source dataset.
+
 ## ESM-2 650M
 
 ESM-2 650M weights are not redistributed here. The inference helper downloads the official fair-esm checkpoint and verifies its SHA-256 before use.

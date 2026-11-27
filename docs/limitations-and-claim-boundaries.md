@@ -18,6 +18,15 @@ These constraints are part of the research record and must accompany any present
 5. Experimentally bound native poses make this a structure-conditioned rescoring experiment, not pose-free prospective screening.
 6. The native prepared-feature replay is reproducible from the supplied label-free feature bundles. This does not establish a portable raw PDB/SDF-to-704D feature-generation workflow.
 
+## ATOM3D scope and test-set integrity
+
+1. ATOM3D supported substantial earlier structural development, but its V13?V36 experiments are separate historical branches and are not part of the frozen V2.0 checkpoint or headline ledger.
+2. The official 466-row validation and 490-row test were each scored once by earlier, non-V2.0 models. The one-time test model was a separate 3,343D LightGBM experiment.
+3. The official test audit records that no reread or new scoring is permitted. Do not run V2.0 against that consumed test set or describe the earlier LightGBM score as a V2.0 result.
+4. The native-versus-pocket and native-versus-shuffled confidence intervals in the one-time test crossed zero. The point-estimate ordering does not establish a geometry-specific benefit.
+5. Earlier source-TRAIN experiments are retrospective and repeatedly used the same 3,507 training labels. Their confidence intervals are development diagnostics, not independent prospective evidence.
+6. The historical evidence and its scope are documented in [atom3d-prior-research.md](atom3d-prior-research.md). No raw ATOM3D data, labels, structures, derived feature arrays or per-example predictions are included.
+
 ## External validation
 
 The frozen gate is BLOCKED_NO_ELIGIBLE_COHORT. No new independent multi-target external cohort passed the predeclared eligibility and pose-quality requirements for scoring. Do not call existing retrospective BioLiP3/OpenBind results prospective external validation.

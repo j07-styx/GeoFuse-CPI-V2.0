@@ -1,0 +1,217 @@
+{
+  "record_status": "HISTORICAL_ATOM3D_RESEARCH_NOT_V2_0_BENCHMARK",
+  "dataset": {
+    "name": "ATOM3D Ligand Binding Affinity, 30 percent sequence-identity split",
+    "source": "PDBBind 2019 refined set via ATOM3D",
+    "doi": "10.5281/zenodo.4914718",
+    "target": "pK = -log(K), with Ki or Kd depending on the source record",
+    "official_split_counts": {
+      "train": 3507,
+      "validation": 466,
+      "test": 490
+    },
+    "license": "CC BY-NC-ND; original data and derivatives are not redistributed"
+  },
+  "v2_0_boundary": {
+    "atom3d_listed_in_v2_0_headline_ledger": false,
+    "frozen_v2_0_atom3d_evaluation_verified": false,
+    "v2_0_native_expert_training_source": "HiQBind TRAIN349",
+    "v2_0_reported_native_evaluation_sources": [
+      "BioLiP3",
+      "OpenBind"
+    ],
+    "interpretation": "Historical ATOM3D experiments belong to earlier exploratory branches and are not part of the frozen V2.0 checkpoint evidence."
+  },
+  "official_validation_scored_once_by_earlier_model": {
+    "n": 466,
+    "native_rmse": 1.581038,
+    "shuffled_rmse": 1.588106,
+    "pocket_only_rmse": 1.576041,
+    "native_minus_shuffled_group_bootstrap_ci95": [
+      -0.0320993363,
+      0.0185428536
+    ],
+    "native_minus_pocket_group_bootstrap_ci95": [
+      -0.0213459575,
+      0.029951093
+    ],
+    "both_geometry_specific_intervals_cross_zero": true,
+    "official_test_accessed_at_that_stage": false
+  },
+  "official_test_scored_once_by_separate_earlier_model": {
+    "status": "ATOM3D_ORIGINAL_ID30_PHYSICS_TEST_SCORED_ONCE",
+    "n": 490,
+    "model": "Separate 3343D, 175-tree LightGBM experiment with three seeds; not the V2.0 checkpoint",
+    "rmse": {
+      "no_pocket_2d": 1.5782572655,
+      "pocket_only": 1.3661266035,
+      "shuffled_geometry": 1.3701859493,
+      "native_physical_geometry": 1.357193633
+    },
+    "native_minus_pocket_group_bootstrap_ci95": [
+      -0.0313487077,
+      0.0132626691
+    ],
+    "native_minus_shuffled_group_bootstrap_ci95": [
+      -0.034180964,
+      0.006910634
+    ],
+    "native_minus_no_pocket_2d_group_bootstrap_ci95": [
+      -0.3267841056,
+      -0.1286539316
+    ],
+    "native_minus_pocket_and_native_minus_shuffled_intervals_cross_zero": true,
+    "integrity_audit_no_test_reread_or_new_scoring": true,
+    "interpretation": "The native point estimate is lower, but the prespecified geometry-specific comparisons against pocket-only and shuffled geometry are inconclusive. The no-pocket 2D comparison does not isolate geometry from the addition of bound-pocket information."
+  },
+  "historical_train_only_experiments": [
+    {
+      "branch": "V13",
+      "n_fit": 950,
+      "n_internal_holdout": 250,
+      "protein_groups_in_holdout": 62,
+      "rmse": {
+        "scratch_3d": 2.0129097456,
+        "pose_pretrained_3d": 2.3987549194,
+        "source_2d_lightgbm": 2.3222267365
+      },
+      "equal_group_macro_rmse": {
+        "scratch_3d": 1.414725,
+        "source_2d_lightgbm": 1.284558,
+        "pose_pretrained_3d": 1.561063
+      },
+      "interpretation": "Pooled scratch-3D advantage reversed under equal-protein-group macro RMSE; pose-pretrained transfer was worse."
+    },
+    {
+      "branch": "V14",
+      "n_fit": 666,
+      "n_internal_holdout": 196,
+      "rmse": {
+        "real_geometry": 1.9919353214,
+        "shuffled_geometry": 1.9923754857,
+        "contact_only": 1.9927379073,
+        "source_2d_lightgbm": 1.6552877791
+      },
+      "real_minus_shuffled_group_macro_rmse_ci95": [
+        -0.0009487452,
+        0.0007640999
+      ],
+      "interpretation": "Matched-capacity fine-geometry arms were nearly tied; the paired interval crossed zero. The separate 2D baseline was not capacity/feature matched."
+    },
+    {
+      "branch": "V16",
+      "n_fit": 707,
+      "n_internal_holdout": 163,
+      "protein_groups": 90,
+      "rmse": {
+        "source_2d_anchor": 1.6726508131,
+        "real_geometry": 1.6595561227,
+        "shuffled_geometry": 1.6640018536,
+        "pocket_only": 1.5987162534
+      },
+      "real_minus_shuffled_group_macro_rmse_ci95": [
+        -0.0923176364,
+        0.0719794983
+      ],
+      "real_minus_pocket_group_macro_rmse_ci95": [
+        -0.0689021147,
+        0.1413502658
+      ],
+      "interpretation": "Pocket-only was numerically best; all five paired group-bootstrap intervals in the archived analysis crossed zero. A separate frozen-weight test established geometry-input sensitivity, not affinity superiority."
+    },
+    {
+      "branch": "V27",
+      "n_original_train": 3507,
+      "design": "Four heuristic protein-component-disjoint folds; five matched 3343D LightGBM arms",
+      "rmse": {
+        "full_native": 1.547513,
+        "full_shuffled": 1.568267,
+        "pocket_only": 1.570639
+      },
+      "full_native_minus_full_shuffled_group_macro_rmse_ci95": [
+        -0.021206,
+        0.004416
+      ],
+      "full_native_minus_pocket_only_group_macro_rmse_ci95": [
+        -0.035978,
+        -0.007658
+      ],
+      "interpretation": "Native beat pocket-only on the group-macro comparison, but native-versus-shuffled uncertainty crossed zero."
+    },
+    {
+      "branch": "V28_V29",
+      "design": "Fixed V27 native-trained weights with geometry-only donor/shuffle interventions",
+      "pooled_mse_reduction_percent": {
+        "native_vs_matched_donor": 3.79,
+        "native_vs_shuffled": 10.29
+      },
+      "donor_spatial_coordinates_outside_native_training_range_percent": 9.66,
+      "interpretation": "Evidence of learned pair-specific feature sensitivity; donor hybrids were partly out of range and were not guaranteed physically valid poses."
+    },
+    {
+      "branch": "V30",
+      "n_primary_valid_scaffold_rows": 2961,
+      "design": "Murcko-scaffold-disjoint source TRAIN folds; protein groups overlap",
+      "mse": {
+        "full_native": 1.893205,
+        "full_shuffled": 1.952329
+      },
+      "native_mse_reduction_vs_shuffled_percent": 3.03,
+      "native_minus_shuffled_scaffold_group_macro_rmse_ci95": [
+        -0.026071,
+        -0.005852
+      ],
+      "interpretation": "Promising retrospective scaffold-cold result, but protein groups were not held out."
+    },
+    {
+      "branch": "V31",
+      "n_strict_dual_cold_rows": 630,
+      "design": "Post-hoc filter of frozen V30 predictions; both scaffold and heuristic protein component absent from fitting",
+      "mse": {
+        "full_native": 2.255815,
+        "full_shuffled": 2.28392,
+        "pocket_only": 2.348669
+      },
+      "native_mse_reduction_vs_shuffled_percent": 1.23,
+      "native_minus_shuffled_protein_group_macro_rmse_ci95": [
+        -0.025403,
+        0.014181
+      ],
+      "native_minus_shuffled_scaffold_group_macro_rmse_ci95": [
+        -0.032044,
+        0.015509
+      ],
+      "native_mse_reduction_vs_pocket_only_percent": 3.95,
+      "interpretation": "Native-versus-shuffled intervals crossed zero on the stricter dual-cold subset; native-versus-pocket-only was more favorable but remains retrospective."
+    },
+    {
+      "branch": "V33",
+      "design": "Morgan plus frozen ESM-2 35M; source TRAIN scaffold folds",
+      "primary_mse": {
+        "esm35m_native": 1.76515,
+        "esm35m_shuffled": 1.789016
+      },
+      "native_minus_shuffled_scaffold_group_macro_rmse_ci95": [
+        -0.011672,
+        0.004643
+      ],
+      "strict_dual_cold_mse": {
+        "native": 2.146435,
+        "shuffled": 2.127577
+      },
+      "interpretation": "Pretrained ESM2 35M improved the source baseline, but the native-specific geometry contrast was inconclusive; shuffled was numerically better on the stricter dual-cold subset. ESM2 35M is not the V2.0 ESM2 650M tower."
+    },
+    {
+      "branch": "V34_V36",
+      "design": "Rigid-body and near-native ligand-coordinate perturbations with steric screening",
+      "interpretation": "Pose sensitivity was measurable on source scaffold-cold folds, but strict dual-cold comparisons had intervals crossing zero. V35 showed that most large pose perturbations failed the steric screen; V36 near-native perturbations did not establish a robust dual-cold affinity benefit."
+    }
+  ],
+  "claim_boundaries": [
+    "No V2.0 ATOM3D score is established.",
+    "No ATOM3D result here is an untouched or prospective V2.0 validation.",
+    "The one-time official test must not be reread or rescored.",
+    "No universal 3D superiority or published PerceiverCPI, HeteroDTA or SISDTA win is established.",
+    "The historical native-structure experiments require experimentally bound complexes; they do not demonstrate pose-free SMILES-plus-sequence 3D inference."
+  ]
+}

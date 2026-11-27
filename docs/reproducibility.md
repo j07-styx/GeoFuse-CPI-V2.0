@@ -93,7 +93,11 @@ Machine-readable run reports are in results/reproduction/ and the source/bundle 
 
 These are retrospective source-label replays from frozen prepared features and fixed model artifacts. They are not independent retraining, raw feature regeneration, prospective validation or proof of universal 3D superiority.
 
-### 6. Full benchmark retraining and clean-room reproduction
+### 6. ATOM3D historical result boundary
+
+ATOM3D is not a verified V2.0 evaluation cohort. The official validation and test sets were each scored once by earlier non-V2.0 models; the test was scored with a separate 3,343D LightGBM model. Its final integrity audit prohibits rereading or new scoring. The archived point estimates and confidence intervals are documented in [the ATOM3D appendix](atom3d-prior-research.md), but they are not V2.0 scores and cannot be used as independent validation of the V2.0 checkpoint.
+
+### 7. Full benchmark retraining and clean-room reproduction
 
 **Not established.** The repository does not contain the original 2D training script, all original raw source feature files, complete cross-source split manifests, or all raw benchmark inputs needed to recreate every DAVIS/KIBA/METZ/GenSPARC table from scratch. The original local release verifier and smoke test passed on the research machine, but this is not equivalent to an independent clean-machine retraining run.
 

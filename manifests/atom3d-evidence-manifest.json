@@ -1,0 +1,111 @@
+{
+  "manifest_status": "AGGREGATE_PROVENANCE_ONLY_NO_SOURCE_DATA_INCLUDED",
+  "dataset": "ATOM3D LBA 30 percent sequence-identity split",
+  "dataset_doi": "10.5281/zenodo.4914718",
+  "source_license": "CC BY-NC-ND; do not redistribute original data or derivatives",
+  "official_split_counts": {
+    "train": 3507,
+    "validation": 466,
+    "test": 490
+  },
+  "official_test_integrity": {
+    "result_status": "ATOM3D_ORIGINAL_ID30_PHYSICS_TEST_SCORED_ONCE",
+    "no_test_reread_or_new_scoring": true,
+    "n_scored_test": 490,
+    "test_model_is_v2_0": false,
+    "test_result_file_sha256": "70447c2c885f7c592b1e427b215a597a618361f24e8e04331c0d52de27ce2dd5",
+    "final_integrity_audit_sha256": "e37e6069d1f24c339d446cf4d0a43c6637e7839a57a21a7f4085c016c04a603d"
+  },
+  "local_source_evidence": [
+    {
+      "file": "geometry_v6_20261115/atom3d_lba30_training/TRAIN_SOURCE_GEOMETRY_AUDIT.json",
+      "sha256": "af3d30590d6917fbfc71f0894f2ea3489371f3031e0793de49ef2450f9364382",
+      "purpose": "Original TRAIN source geometry and preprocessing audit"
+    },
+    {
+      "file": "geometry_v6_20261115/atom3d_lba30_training/ATOM3D_VALIDATION_LOCKED_PROTOCOL.json",
+      "sha256": "05dbb3a8bc44f8ff8fb9127e83721207981dc20cc25570c34b457927bf2a002c",
+      "purpose": "Frozen one-time validation protocol"
+    },
+    {
+      "file": "geometry_v6_20261115/atom3d_lba30_training/ATOM3D_ONE_TIME_SEQUENCE_ID30_VALIDATION.json",
+      "sha256": "519654ad64d471e0f4fa2d4f4639b86f14d4adc55621c804d65f54e47c60b591",
+      "purpose": "One-time 466-row official validation aggregate"
+    },
+    {
+      "file": "geometry_v6_20261115/atom3d_lba30_training/ATOM3D_ID30_TEST_AMENDED_INTERFACE_LOCK_V2.json",
+      "sha256": "595fb891e82e6308d5c6cdf92e38f9f66813de9c504ffca38d6af7d2bd680ff3",
+      "purpose": "Final amended one-time test lock"
+    },
+    {
+      "file": "geometry_v6_20261115/atom3d_lba30_training/ATOM3D_ID30_ONE_TIME_PHYSICAL_HELDOUT_TEST.json",
+      "sha256": "70447c2c885f7c592b1e427b215a597a618361f24e8e04331c0d52de27ce2dd5",
+      "purpose": "Aggregate result of the earlier, non-V2.0 one-time test"
+    },
+    {
+      "file": "geometry_v6_20261115/atom3d_lba30_training/ATOM3D_ONE_TIME_FINAL_INTEGRITY_AUDIT.json",
+      "sha256": "e37e6069d1f24c339d446cf4d0a43c6637e7839a57a21a7f4085c016c04a603d",
+      "purpose": "Final audit prohibiting test reread or new scoring"
+    },
+    {
+      "file": "published_benchmarks/GEOFUSE_ATOM3D_V27_POCKET_CONTROLLED_RESULTS.json",
+      "sha256": "6b967d3a89842db2611208713daa9bfb4418c442d0e2050745c0ba7abca77e2a",
+      "purpose": "V27 original TRAIN-only pocket-controlled results"
+    },
+    {
+      "file": "published_benchmarks/GEOFUSE_ATOM3D_V28_FIXEDWEIGHT_DONOR_RESULTS.json",
+      "sha256": "4c3c11525989e63f3a8c29dc4381121c7f423ebddcaa7aa8f25c0bd1f0fa2982",
+      "purpose": "V28 fixed-weight geometry intervention results"
+    },
+    {
+      "file": "published_benchmarks/GEOFUSE_ATOM3D_V30_SCAFFOLD_RESULTS.json",
+      "sha256": "0b5d985fc204dab26d8e2d0575ef68447b38deef31f9d6bd0f0bee713000670f",
+      "purpose": "V30 original TRAIN-only scaffold-cold results"
+    },
+    {
+      "file": "published_benchmarks/GEOFUSE_ATOM3D_V31_DUALCOLD_TRAINONLY_RESULTS.json",
+      "sha256": "29a21136cafd4e324c223410282a6e12a1cd2caf8253984ac4a99273c10f848e",
+      "purpose": "V31 stricter dual-cold subset results"
+    },
+    {
+      "file": "published_benchmarks/GEOFUSE_ATOM3D_V33_RESULTS.json",
+      "sha256": "78d4c1f6c9e5ba9b45f5f96e1a9ed8aebc61e91d864327acbee9c8b973d725e6",
+      "purpose": "V33 ESM2-35M source TRAIN-only results"
+    },
+    {
+      "file": "published_benchmarks/GEOFUSE_ATOM3D_V34_CORRECTED_BOOTSTRAP_READONLY.json",
+      "sha256": "3eaf176bd3d6b02d105075bbadf5e54afb5e20af984b84066ee6d9a47935892a",
+      "purpose": "V34 corrected rigid-pose bootstrap results"
+    },
+    {
+      "file": "published_benchmarks/GEOFUSE_ATOM3D_V36_RESULTS.json",
+      "sha256": "a46937aa1e8b80e8aa463aca2c033773dd0301edaa64af840832742b2fac4cdf",
+      "purpose": "V36 near-native steric-screened coordinate-control results"
+    },
+    {
+      "file": "geometry_v6_20261115/atom3d_v13_dualgraph_affinity_transfer_trainonly_20261116/V13_ATOM3D_TRAIN_ONLY_950_250_POSE_INIT_VS_SCRATCH_2D_RESULTS.json",
+      "sha256": "82c956f02ef70c8dc5b0bc92bcf269629635c806c5b1dc2c9446c5c0666bd712",
+      "purpose": "V13 original TRAIN-only scratch versus pose-pretraining results"
+    },
+    {
+      "file": "geometry_v6_20261115/atom3d_v14_fine_geometry_causal_ablation_trainonly_20261116/V14_EXPLORATORY_ATOM3D_TRAINONLY_666_196_FINE_GEOMETRY_3ARM_AND_2D_METRICS.json",
+      "sha256": "593881e4ae2ad56487545569fcb2382f7bc9fa1db1e32d5b8b5cc0124cad63ff",
+      "purpose": "V14 original TRAIN-only fine-geometry ablation"
+    },
+    {
+      "file": "geometry_v6_20261115/v16_pairenergy_2Danchored_trainonly_20261116/V16_EXPLORATORY_2D_ANCHORED_DIRECT_PAIR_ENERGY_3D_REAL_SHUFFLED_POCKET_163_90GROUP_RESULTS.json",
+      "sha256": "e50e1cf0a5633857c14434a5a8539b9309d78a2f1f7e89882ac422b366061c58",
+      "purpose": "V16 original TRAIN-only 2D-anchored pair-energy results"
+    }
+  ],
+  "redistribution_boundary": {
+    "raw_dataset_included": false,
+    "affinity_labels_included": false,
+    "raw_structures_included": false,
+    "derived_feature_arrays_included": false,
+    "per_example_predictions_included": false,
+    "only_aggregate_results_and_sha256_provenance_included": true
+  },
+  "v2_0_headline_results_unchanged": true,
+  "note": "Hashes identify local research evidence. This public manifest does not include the underlying source data, reproduce model fits, or authorize access to the consumed official test split."
+}

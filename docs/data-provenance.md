@@ -21,6 +21,13 @@ The V2.0 result ledger includes DAVIS, KIBA, METZ and GenSPARC. Exact row counts
 - OpenBind EV-A71/CVA16 2A protease: [Zenodo record 22142262](https://doi.org/10.5281/zenodo.22142262). The record releases the source dataset under CC0 1.0. The scored set contains 482 compounds with measured pKd from one target family; this is not broad multi-target validation.
 - HiQBind source training dataset: [Figshare record 27430305](https://doi.org/10.6084/m9.figshare.27430305). The source-trained native folds use this training source; raw training labels and private records are not included here.
 
+## Historical ATOM3D structural research (not a V2.0 cohort)
+
+- ATOM3D LBA 30%-sequence-identity split: 3,507 training, 466 validation and 490 test complexes. The source benchmark predicts pK from Ki/Kd measurements; see the [official ATOM3D LBA page](https://www.atom3d.ai/lba.html) and [Zenodo record](https://doi.org/10.5281/zenodo.4914718).
+- ATOM3D was used in earlier GeoFuse structural-development branches for atom-pair descriptors, pocket/shuffled controls, scaffold-cold splits and rigid-pose sensitivity experiments. These are retrospective experiments on previously studied source data, not V2.0 benchmark results.
+- The official validation and test sets were each scored once by earlier, separate models. The test result is from a 3,343D LightGBM model, not V2.0; the final audit explicitly prohibits rereading or new scoring. No frozen V2.0 ATOM3D evaluation is verified.
+- ATOM3D is licensed CC BY-NC-ND. This repository does not redistribute the original data, affinity labels, structures, derived features or per-example predictions. See [the historical research appendix](atom3d-prior-research.md) and [evidence manifest](../manifests/atom3d-evidence-manifest.json).
+
 ## Prepared replay bundles
 
 The OpenBind and BioLiP3 replay bundles contain label-free, prepared feature arrays, sample identifiers and frozen reference predictions required for exact inference-parity checks. They do not contain numerical affinity labels or raw PDB/SDF coordinates.

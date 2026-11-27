@@ -76,6 +76,16 @@ V2.0 has **20/24 numerical metric wins** against rounded published RMSE/Pearson 
 
 **Do not claim universal 3D superiority or independent multi-target external validation.** The external validation gate is blocked for lack of an eligible new cohort.
 
+## ATOM3D prior structural research (not a V2.0 benchmark)
+
+ATOM3D-LBA was important to GeoFuse's earlier structural R&D: it supported atom-pair descriptor development, pocket and shuffled-geometry controls, scaffold-cold experiments and ligand-pose sensitivity studies. Those experiments belong to separate historical branches, not the frozen V2.0 checkpoint or its headline results. The official ATOM3D validation and test splits were each evaluated once by earlier non-V2.0 models; the test audit prohibits rereading or rescoring. No frozen V2.0 ATOM3D score is established.
+
+See [the ATOM3D research appendix](docs/atom3d-prior-research.md), its [aggregate summary](results/atom3d-historical-summary.json) and [evidence hashes](manifests/atom3d-evidence-manifest.json). No raw ATOM3D data, labels, structures, derived features or per-example predictions are redistributed.
+
+To check the aggregate record without opening source data or rescoring the consumed test:
+
+    python scripts/verify_atom3d_summary.py
+
 ## Reproducing the native analyses
 
 The repository includes the frozen native expert implementation, label-free prepared feature/replay bundles and replay scripts. First verify exact prediction parity without accessing affinity labels:
